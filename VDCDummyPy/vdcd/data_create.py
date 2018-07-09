@@ -14,7 +14,7 @@ def create_patient():
     func.name = (str(random.choice(string.ascii_uppercase))+ ''.join(random.choice(string.ascii_lowercase) for _ in range(8)))
     func.gender = random.choice(["male", "female", "undefined"])
     func.email = func.name + func.last_name + str(random.choice(["@googlemail.com","@yahoo.nz","@ise.de","@gmx.net","@reddit.com","@isengart.me","@web.de","@outlook.com","@feuerbart.io"])) 
-    func.birthday = random.choice(["3.6.2018:23.34.34","3.8.2016:34.34.34","7.6.2015:24.54.34","3.4.2018:4.23.12","3.6.2018:13.34.56"])
+    func.birthday = random.choice(["2017-11-28T16:36:57.713Z","2057-08-06T16:34:12.433Z","2017-11-28T17:23:12.713Z","1117-11-21T16:36:57.731Z","2007-11-12T23:36:32.23Z"])
     #func.exams = create_exam_list(func.ssn,func.last_name,func.name)
     return func.__dict__
 
@@ -24,7 +24,7 @@ def create_exam(ssn=51423, last_name="Grey", name="Dorian"):
   func.ssn = ssn
   func.last_name = last_name
   func.name = name
-  func.date = random.choice(["3.6.2018:23.34.34","3.8.2016:34.34.34","7.6.2015:24.54.34","3.4.2018:4.23.12","3.6.2018:13.34.56"])# some random Date
+  func.date = random.choice(["2017-11-28T16:36:57.713Z","2057-08-06T16:34:12.433Z","2017-11-28T17:23:12.713Z","1117-11-21T16:36:57.731Z","2007-11-12T23:36:32.23Z"])# some random Date
   func.cholesterol = random.randint(1,3000)/345.3456
   func.triglyceride = random.randint(1,11000)/345.3456
   func.hepatitis = random.choice([True, False])
