@@ -12,19 +12,21 @@ to start use following commands
 The service creates mock-up data. It enables the user to simulate errors or higher latency on the server side.
 More search parameters in the GET query result in less data returned.
 
-no_response: The server won't respond to GET request(if True)
-wait_timed: The server waits the amount of time specified (in sec) 
-error_rate: The server returns a 500 error according to the rate (80 means 80 percent of the time)
-data_reduction: Data is reduced by the factor given
+Possible behaviour parameter can be transmitted as form-data or Json body 
+- no_response: The server won't respond to GET request(if True)
+- wait_timed: The server waits the amount of time specified (in sec) 
+- error_rate: The server returns a 500 error according to the rate (80 means 80 percent of the time)
+- data_reduction: Data is reduced by the factor given
+
 
 
 ### API:
-| Method | Path               | Details                      | Returns | Body or Form
-| :--- | :---| --- | --- | --- |
+| Method | Path               | Details                      | Returns 
+| :--- | :---| --- | --- | 
 | GET    | /patient?     | ssn, patientid, try, chol, hep, date| Patient | |
 | GET    | /exam?        | ssn, patientid, try, chol, hep, date | \[Exam,...\] | |
 | GET    | /find?...          | ssn, patientid, try, chol, hep, date|  \[Exam,...\]||
-| GET    | /behaviour/     |  | HttpResponse |no_response= "True" or "False", wait_time=integer, error_rate=0-100, data_reduction=0-3000 |
+| GET    | /behaviour/     | no_response= "True" or "False", wait_time=integer, error_rate=0-100, data_reduction=0-3000 | HttpResponse |
 
 
 
