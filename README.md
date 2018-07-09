@@ -26,7 +26,7 @@ Possible behaviour parameter can be transmitted as form-data or Json body
 | GET    | /patient?     | ssn, patientid, try, chol, hep, date| Patient | |
 | GET    | /exam?        | ssn, patientid, try, chol, hep, date | \[Exam,...\] | |
 | GET    | /find?...          | ssn, patientid, try, chol, hep, date|  \[Exam,...\]||
-| GET    | /behaviour/     | no_response= "True" or "False", wait_time=integer, error_rate=0-100, data_reduction=0-3000 | HttpResponse |
+| POST    | /behaviour/     | no_response= "True" or "False", wait_time=integer, error_rate=0-100, data_reduction=0-3000 | HttpResponse |
 
 
 
