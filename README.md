@@ -6,8 +6,8 @@ VDC mock up implementation for OSR use case of the DITAS project
 
 
 to start use following commands
-- virtualenv -p python3 djangodev
-- python manage.py runserver
+- docker build .
+- docker run -p 8000:8000 [container-ID]
 
 The service creates mock-up data. It enables the user to simulate errors or higher latency on the server side.
 More search parameters in the GET query result in less data returned.
