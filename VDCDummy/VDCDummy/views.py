@@ -2,18 +2,16 @@ import random
 import string
 import json
 import time
-import VDCDummy.data_create as dc
-import VDCDummy.server_chaos_monkey as server_chaos_monkey
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
+import VDCDummy.data_create as dc
+import VDCDummy.server_chaos_monkey as server_chaos_monkey
 
 cm = server_chaos_monkey.ServerMonkey()
-
-#Just for testing purposes
-def index(request):
-  return HttpResponse("Hello World! This is to be the VDC Dummy ")
 
 #returns a list of up to 1000 patients, depending on the amount of parameters given
 def patient(request):
@@ -39,9 +37,11 @@ def find(request):
     return HttpResponse(status=500)
   return JsonResponse(res)
 
-#interface to change the behavior of the server to accomadate for different amount of errors
+#interface to change the behavior of the server to accomadate for different types and amount of errors
+@csrf_exempt
 def behaviour(request):
   #Get behaviour from form-data
+  request_body = request.body
   no_response = request.POST.get('no_response',None)
   if no_response=="True":
     cm.event.clear()
@@ -60,21 +60,22 @@ def behaviour(request):
   data_reduction= request.POST.get('data_reduction',None)
   if data_reduction==None:
     data_reduction= cm.data_reduction
+   
   #Get behaviour from Json
-  json_data = json.loads(str(request.body)[2:-1])
-  if 'no_response' in json_data:
-    no_response = json_data['no_response']
-    print(no_response)
-  if 'data_reduction' in json_data:
-    data_reduction = json_data['data_reduction']
-  if 'error_rate' in json_data:
-    error_rate = json_data['error_rate']
-  if 'wait_time' in json_data:
-    wait_time = json_data['wait_time']
-
+  try:
+    json_data = json.loads(str(request_body)[2:-1])
+    if 'no_response' in json_data:
+      no_response = json_data['no_response']
+    if 'data_reduction' in json_data:
+      data_reduction = json_data['data_reduction']
+    if 'error_rate' in json_data:
+      error_rate = json_data['error_rate']
+    if 'wait_time' in json_data:
+      wait_time = json_data['wait_time']
+  except:
+    pass
   cm.parameter(int(wait_time),int(error_rate),no_response,int(data_reduction))
   return HttpResponse("No Response: "+str(cm.no_response)+ "\nWait Time:  "+ str(cm.wait_time)+ "\nError Rate:  "+ str(cm.error_rate) +" \nData Reduction:  "+ str(cm.data_reduction),content_type="text/plain")
-
 
 #counts the amount of parameters given to scale down the size of the returned lists
 def get_parameters_amount(request):
